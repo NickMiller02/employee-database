@@ -34,6 +34,9 @@ After that, input the command ```quit;``` inside the MySQL shell
 Once on the command line, input ```npm start``` or ```node server.js```
 
 
+For mock data, go into the MySQL Shell and source the schema file, then enter ```SOURCE seeds.sql;```
+
+
 ## License
 
 ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
@@ -50,6 +53,6 @@ N/A
 Contact my email for questions! <br />
 <br />
 
-Link to repository: [Employee-Database](https://github.com/NickMiller02/employee-database)
+Link to repository: [Employee-Database](https://github.com/NickMiller02/employee-database)<br />
 Find me on GitHub: [NickMiller02](https://github.com/NickMiller02)<br />
 Email me with any questions: nicholasmill157@gmail.com<br /><br />

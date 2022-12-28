@@ -1,5 +1,5 @@
 //Imports
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 require('dotenv').config();
@@ -11,6 +11,12 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: 'employee_db'
 });
+
+connection.connect(err => {
+    if (err) throw err;
+    console.log(`connected as id ${connection.threadID}`);
+    afterConnection();
+})
 
 //Help make the connection look visible
 afterConnection = () => {
@@ -108,7 +114,7 @@ const promptUser = () => {
   });
 };
 
-//Department prompt
+//Show department prompt
 showDepartments = () => {
   console.log('Showing all departments...\n');
   const sql = `SELECT department.id AS id, department.name AS department FROM department`; 
@@ -120,9 +126,42 @@ showDepartments = () => {
   });
 };
 
-//Role prompt
+//Show role prompt
+showRoles = () => {
+  console.log('Showing all roles...\n');
 
-//Employee prompt
+  const sql = `SELECT role.id, role.title, department.name AS department
+               FROM role
+               INNER JOIN department ON role.department_id = department.id`;
+  
+  connection.promise().query(sql, (err, rows) => {
+    if (err) throw err; 
+    console.table(rows); 
+    promptUser();
+  })
+};
+
+//Show employee prompt
+showEmployees = () => {
+  console.log('Showing all employees...\n'); 
+  const sql = `SELECT employee.id, 
+                      employee.first_name, 
+                      employee.last_name, 
+                      role.title, 
+                      department.name AS department,
+                      role.salary, 
+                      CONCAT (manager.first_name, " ", manager.last_name) AS manager
+               FROM employee
+                      LEFT JOIN role ON employee.role_id = role.id
+                      LEFT JOIN department ON role.department_id = department.id
+                      LEFT JOIN employee manager ON employee.manager_id = manager.id`;
+
+  connection.promise().query(sql, (err, rows) => {
+    if (err) throw err; 
+    console.table(rows);
+    promptUser();
+  });
+};
 
 //Add department prompt
 

@@ -105,11 +105,12 @@ showDepartments = () => {
   //SQL to show the departments in table data
   const sql = `SELECT department.id AS id, department.name AS department FROM department`; 
 
-  connection.promise().query(sql, (err, rows) => {
-    if (err) throw err;
-    console.table(rows);
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+    console.table("Response: ", response);
+    //console.table(rows); 
     promptUser();
-  });
+});
 };
 
 //Show role prompt
@@ -121,11 +122,13 @@ showRoles = () => {
                FROM role
                INNER JOIN department ON role.department_id = department.id`;
   
-  connection.promise().query(sql, (err, rows) => {
-    if (err) throw err; 
-    console.table(rows); 
-    promptUser();
-  })
+        connection.query(sql, (error, response) => {
+            if (error) throw error;
+            console.table("Response: ", response);
+            //console.table(rows); 
+            promptUser();
+        });
+
 };
 
 //Show employee prompt
@@ -144,11 +147,12 @@ showEmployees = () => {
                       LEFT JOIN department ON role.department_id = department.id
                       LEFT JOIN employee manager ON employee.manager_id = manager.id`;
 
-  connection.promise().query(sql, (err, rows) => {
-    if (err) throw err; 
-    console.table(rows);
-    promptUser();
-  });
+  connection.query(sql, (error, response) => {
+        if (error) throw error;
+        console.table("Response: ", response);
+        //console.table(rows); 
+        promptUser();
+        });
 };
 
 //Add department prompt
@@ -172,7 +176,7 @@ addDepartment = () => {
     .then(answer => {
       const sql = `INSERT INTO department (name)
                   VALUES (?)`;
-      connection.query(sql, answer.addDept, (err, result) => {
+    connection.query(sql, answer.addDept, (err, result) => {
         if (err) throw err;
         console.log(`${answer.addDept} was added to departments!`); 
 

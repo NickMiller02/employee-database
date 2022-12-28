@@ -36,6 +36,9 @@ Once on the command line, input ```npm start``` or ```node server.js```
 
 For mock data, go into the MySQL Shell and source the schema file, then enter ```SOURCE seeds.sql;```
 
+For a tutorial on how to recieve data, follow this link to a short video guide
+
+[Click me for a tutorial!](https://drive.google.com/file/d/1_6fo5FFSJJguoUSwVDJSJUclAw6-hvxG/view)
 
 ## License
 
